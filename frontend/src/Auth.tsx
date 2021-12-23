@@ -63,7 +63,15 @@ export const AuthProvider: React.FC = ({ children }) => {
       const isAuthenticatedFromHook = await auth0FromHook.isAuthenticated();
       if (isAuthenticatedFromHook) {
         const user = await auth0FromHook.getUser();
+        // const currAuth0User: Auth0User = {
+        //   name: user?.name ?? '',
+        //   email: user?.email ?? '',
+        // };
+        console.log('user is authenticated!');
+        console.log(user);
         setUser(user);
+        //setUser(currAuth0User);
+        //console.log(currAuth0User);
       }
       setIsAuthenticated(isAuthenticatedFromHook);
       setLoading(false);
@@ -80,8 +88,8 @@ export const AuthProvider: React.FC = ({ children }) => {
         signOut: () =>
           getAuth0ClientFromState().logout({
             client_id: authSettings.client_id,
-            returnTo: window.location.origin + '/singout-callback',
-        }),
+            returnTo: window.location.origin + '/signout-callback',
+          }),
         loading,
       }}
     >
