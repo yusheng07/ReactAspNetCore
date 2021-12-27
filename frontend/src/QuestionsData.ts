@@ -39,7 +39,7 @@ export interface PostQuestionData {
   created: Date;
 }
 
-export interface PosAnswerData {
+export interface PostAnswerData {
   questionId: number;
   content: string;
   userName: string;
@@ -60,18 +60,30 @@ export const mapQuestionFromServer = (
 });
 
 export const postAnswer = async (
-  answer: PosAnswerData,
+  answer: PostAnswerData,
 ): Promise<AnswerData | undefined> => {
-  await wait(500);
-  const answerInQuestion: AnswerData = {
-    answerId: 99,
-    ...answer,
-  };
-  const question = questions.filter(
-    (q) => q.questionId === answer.questionId,
-  )[0];
-  question.answers.push(answerInQuestion);
-  return answerInQuestion;
+  // await wait(500);
+  // const answerInQuestion: AnswerData = {
+  //   answerId: 99,
+  //   ...answer,
+  // };
+  // const question = questions.filter(
+  //   (q) => q.questionId === answer.questionId,
+  // )[0];
+  // question.answers.push(answerInQuestion);
+  // return answerInQuestion;
+  const accessToken = await getAccessToken();
+  const result = await http<AnswerData, PostAnswerData>({
+    path: '/questions/answer',
+    method: 'post',
+    body: answer,
+    accessToken,
+  });
+  if (result.ok) {
+    return result.body;
+  } else {
+    return undefined;
+  }
 };
 
 export const postQuestion = async (
