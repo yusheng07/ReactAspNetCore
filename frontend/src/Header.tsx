@@ -96,7 +96,7 @@ export const Header = () => {
       </form>
       <div>
         {!loading &&
-          (isAuthenticated? (
+          (isAuthenticated ? (
             <div>
               <span>{user!.name}</span>
               <Link to="/signout" css={buttonStyle}>
