@@ -23,10 +23,6 @@ export const SignOutPage = ({ action }: Props) => {
       break;
   }
 
-  const { signIn } = useAuth();
-  if (action === 'signout') {
-    signIn();
-  }
   return (
     <Page title="Sign Out">
       <StatusText>{message}</StatusText>
